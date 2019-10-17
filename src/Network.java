@@ -9,8 +9,8 @@ import static java.util.Objects.isNull;
 public class Network {
     private static long networkCounter = 0;
     private long networkID;
-    private List<Edge> edgeList = new ArrayList<Edge>();
-    private List<Node> nodeList = new ArrayList<Node>();
+    private List<Edge> edgeList = new ArrayList<>();
+    private List<Node> nodeList = new ArrayList<>();
     private File file;
 
 
@@ -26,7 +26,7 @@ public class Network {
                 this.file = new File(pathFile);
                 Scanner sc = new Scanner(file);
                 //TODO: nie koniecznie uzywac tutaj klasy Scanner
-                //TODO: proba odczytania z pliku i zmapowanie zmiennych za pomocą line.split
+                //TODO: proba odczytania z pliku i zmapowanie zmiennych za pomocą line.split a potem do odpowiednich pól
                 //TODO: trzeba odszukac kluczowych slow WEZLY i LACZA
                 //TODO: nalezy tez uwzglednic omijanie linijek z hashem #
                 }
