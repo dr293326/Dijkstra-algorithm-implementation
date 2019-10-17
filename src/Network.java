@@ -23,14 +23,28 @@ public class Network {
         if(!isNull(pathFile))
         {
             try {
-                this.file = new File(pathFile);
-                Scanner sc = new Scanner(file);
-                //TODO: nie koniecznie uzywac tutaj klasy Scanner
-                //TODO: proba odczytania z pliku i zmapowanie zmiennych za pomocą line.split a potem do odpowiednich pól
-                //TODO: trzeba odszukac kluczowych slow WEZLY i LACZA
-                //TODO: nalezy tez uwzglednic omijanie linijek z hashem #
+                    this.file = new File(pathFile);
+
+                    if(file.exists()) {
+                        Scanner scanner = new Scanner(file);
+                        while (scanner.hasNextLine()){
+
+                            //Zaciagam linie
+                            String line = scanner.nextLine();
+
+                            //Pomijam linie z #
+                            if (!(line.substring(0,1).contains("#"))){
+                                //Rozdzielam kazda linie za pomoca regexa w split
+                                //Otrzymuje tablice stringow ktore byly rodzielone spacja
+                                String[] result = line.split(" ");
+
+
+                            }
+                        }
+                    }
+                    //TODO: trzeba odszukac kluczowych slow WEZLY i LACZA
                 }
-                catch(FileNotFoundException e){
+                catch(FileNotFoundException ex){
                     System.out.println("Nie znaleziono pliku o podanej sciezce!");
                 }
 
