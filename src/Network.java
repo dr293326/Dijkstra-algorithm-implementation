@@ -52,32 +52,40 @@ public class Network {
                                 if (result[0].contains("WEZLY")) {
                                     isEdge = false;
                                     isNode = true;
-                                    numberOfNodes = Integer.parseInt(result[0]);
+                                    numberOfNodes = Integer.parseInt(result[2]);
+                                    line = scanner.nextLine();
+                                    result = line.split(" ");
                                 }
 
                                 if (result[0].contains("LACZA")) {
                                     isEdge = true;
                                     isNode = false;
-                                    numberOfEdges = Integer.parseInt(result[0]);
+                                    numberOfEdges = Integer.parseInt(result[2]);
+                                    line = scanner.nextLine();
+                                    result = line.split(" ");
                                 }
                                 //wczytuje do obiektow
-                                if (isEdge == false && isNode == true) {
+                                if (isEdge == false && isNode == true && (!result[0].contains("#"))) {
                                     Node tmpnode = new Node(Long.parseLong(result[0]),Integer.parseInt(result[1]),Integer.parseInt(result[2]));
                                     nodeList.add(tmpnode);
                                 }
 
-                                if (isEdge == true && isNode == false) {
-                                    long tmpID = Long.parseLong(result[0]);
-                                    //tutaj krawedzie dobrze poustawwiac
+                                if (isEdge == true && isNode == false && (!result[0].contains("#"))) {
+                                    //id - 1 bo tablice indeksowane od 0 a nie 1
+                                    Edge tmpedge = new Edge((Long.parseLong(result[0])),nodeList.get(Integer.parseInt(result[1])-1),nodeList.get(Integer.parseInt(result[2])-1));
+                                    //sprawdzam czy poprawnie wprowadzilo do tmpedge
+                                    if (isNull(tmpedge.getEdgeID()) || isNull(tmpedge.getStart()) || isNull(tmpedge.getFinish())) {
+                                        throw new NumberFormatException("Blad podczas wczytywania krawedzi grafu z pliku!");
+                                    }
+                                    edgeList.add(tmpedge);
+
                                 }
                             }
                             catch (NumberFormatException nfex) {
                                 System.out.println("Wystapil blad podczas wczytywania grafu z pliku!");
                                 System.out.println("Wyjatek :" + nfex.getMessage());
                             }
-
                         }
-
                     }
                 }
             }
@@ -86,6 +94,17 @@ public class Network {
             catch(FileNotFoundException ex){
                 System.out.println("Nie znaleziono pliku o podanej sciezce!");
             }
+        }
+    }
+
+    public void printNetwork() {
+        System.out.println("/----------------------------------------------------------------/");
+        for (Node nodes:nodeList) {
+            nodes.printOnConsole();
+        }
+        System.out.println("/----------------------------------------------------------------/");
+        for (Edge edges:edgeList) {
+            edges.printOnConsole();
         }
     }
 }

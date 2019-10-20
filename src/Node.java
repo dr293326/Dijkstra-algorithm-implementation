@@ -31,4 +31,8 @@ public class Node {
     public Node getNode() {
         return this;
     }
+
+    public void printOnConsole() {
+        System.out.println("Wezel ID:" + this.nodeID + " X:" + this.x + " Y:" + this.y);
+    }
 }

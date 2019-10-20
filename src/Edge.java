@@ -16,6 +16,11 @@ public class Edge {
         this.finish = finish;
     }
 
+    public Edge(long edgeID, Node start, Node finish) {
+        this.edgeID = edgeID;
+        this.start = start;
+        this.finish = finish;
+    }
 
     public long getEdgeID() {
         return edgeID;
@@ -63,5 +68,9 @@ public class Edge {
         this.direction = direction;
         this.start = start;
         this.finish = finish;
+    }
+
+    public void printOnConsole(){
+        System.out.println("Krawedz ID:" + this.edgeID + " ID wezla start:" + start.getNodeID() + " ID wezla koniec:" + finish.getNodeID() );
     }
 }
