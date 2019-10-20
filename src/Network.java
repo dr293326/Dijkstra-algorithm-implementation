@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.LineNumberReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,9 +12,11 @@ import static java.util.Objects.isNull;
 public class Network {
     private static long networkCounter = 0;
     private long networkID;
-    private List<Edge> edgeList = new ArrayList<>();
-    private List<Node> nodeList = new ArrayList<>();
+    private List<Edge> edgeList = null; //ArrayList<>();
+    private List<Node> nodeList = null; // ArrayList<>();
     private File file;
+    private int numberOfNodes;
+    private int numberOfEdges;
 
 
     public Network() {
@@ -20,13 +25,13 @@ public class Network {
     }
 
     public void readFromFile(String pathFile) {
-        boolean isNode = false, isEdge = false;
-
         if(!isNull(pathFile))
+        {
             try {
                 this.file = new File(pathFile);
 
                 if (file.exists()) {
+
                     Scanner scanner = new Scanner(file);
                     while (scanner.hasNextLine()) {
 
@@ -39,23 +44,38 @@ public class Network {
                             //Otrzymuje tablice stringow ktore byly rodzielone spacja
                             String[] result = line.split(" ");
 
-                            if (result[1].contains("WEZLY") && isNode == false) {
-                                isNode = true;
-                                isEdge = false;
-                            }
-                            if (result[1].contains("LACZA")) {
-                                isNode = false;
-                                isEdge = true;
-                            }
+                            switch (result[0]) {
+                                case "WEZLY":
+                                    numberOfNodes = Integer.parseInt(result[2]);
+                                    nodeList = new ArrayList<>(numberOfNodes);
+                                    for (int i = 0; i < numberOfNodes; i++) {
+                                        line = scanner.nextLine();
+                                            Node tmp = new Node(Long.parseLong(result[0]), Integer.parseInt(result[1]),
+                                                    Integer.parseInt(result[2]));
+                                            nodeList.add(tmp);
+                                        }
+                                    break;
 
-                            if (isNode == true) {
-                                //TODO zrobic try parse do intow
+                                /*case "LACZA":
+                                    numberOfEdges = Integer.parseInt(result[2]);
+                                    for (int i = 0; i < numberOfEdges; i++) {
+                                        Edge tmp = new Edge(Long.parseLong(result[0]), 0, "nie wiem",
+                                                Integer.parseInt(result[1]), Integer.parseInt(result[1]));
+                                        edgeList.add(tmp);
+                                    }
+                                    break;*/
                             }
                         }
+
                     }
                 }
-            } catch (FileNotFoundException ex) {
-                System.out.println("Nie znaleziono pliku o podanej sciezce!");
             }
+
+                    //TODO: trzeba odszukac kluczowych slow WEZLY i LACZA
+                catch(FileNotFoundException ex){
+                    System.out.println("Nie znaleziono pliku o podanej sciezce!");
+                }
+
+        }
     }
 }
