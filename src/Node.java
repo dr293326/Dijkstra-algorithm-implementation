@@ -27,4 +27,8 @@ public class Node {
     public long getNodeID() {
         return nodeID;
     }
+
+    public Node getNode() {
+        return this;
+    }
 }
