@@ -10,7 +10,7 @@ WEZLY = 5
 5 44 33
 # liczba krawedzi
 LACZA = 10
-# kazde lacze to trojka (identyfikator, wezel poczatkowy, wezel koncowy)
+# kazde lacze to trojka (identyfikator, wezel poczatkowy, wezel koncowy, wartosc)
 1 1 2
 2 2 3
 3 3 4
@@ -18,6 +18,6 @@ LACZA = 10
 5 5 1
 6 1 3
 7 1 4
-8 2 3
+8 3 5
 9 2 4
 10 2 5

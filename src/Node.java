@@ -4,6 +4,10 @@ public class Node {
     private int x;
     private int y;
 
+    public Node(){
+
+    }
+
     public Node(long nodeID, int x, int y) {
         this.nodeID = nodeID;
         this.x = x;

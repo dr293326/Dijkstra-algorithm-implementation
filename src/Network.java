@@ -27,6 +27,8 @@ public class Network {
         networkCounter++;
     }
 
+    //TODO: rozbic wczytywanie na podmetody
+    //TODO: sprawdzac czy krawedzie sie nie powtarzaja np 2 i 8 w przykladowym pliku
     public void readFromFile(String pathFile) {
         if(!isNull(pathFile))
         {
@@ -77,6 +79,7 @@ public class Network {
                                     if (isNull(tmpedge.getEdgeID()) || isNull(tmpedge.getStart()) || isNull(tmpedge.getFinish())) {
                                         throw new NumberFormatException("Blad podczas wczytywania krawedzi grafu z pliku!");
                                     }
+                                    tmpedge.calculateValue();
                                     edgeList.add(tmpedge);
 
                                 }
@@ -90,7 +93,7 @@ public class Network {
                 }
             }
 
-                //TODO: trzeba odszukac kluczowych slow WEZLY i LACZA
+
             catch(FileNotFoundException ex){
                 System.out.println("Nie znaleziono pliku o podanej sciezce!");
             }
@@ -106,5 +109,56 @@ public class Network {
         for (Edge edges:edgeList) {
             edges.printOnConsole();
         }
+    }
+
+    public List<Edge> doPrimMST(int startID){
+        Node startNode = nodeList.get(startID);
+
+        if (!isNull(startNode)) {
+            Node currentNode = new Node();
+            int maxEdges = nodeList.size() -  1;                // gdy n wierzcholkow to  n-1 krawedzi
+
+            int i = 0;
+            List <Edge> usedEdges = new ArrayList<>();          // lista uzytych juz wierzcholkow
+            List <Node> usedNodes = new ArrayList<>();
+            usedNodes.add(startNode);
+
+            currentNode = startNode;
+            for (i=1;i < numberOfNodes;i++){
+                Edge newEdge;
+                newEdge = this.findMinEdge(usedNodes,usedEdges);
+                if (usedNodes.contains(newEdge.getStart())){
+                    usedNodes.add(newEdge.getFinish());
+                }
+                else{
+                    usedNodes.add(newEdge.getStart());
+                }
+                usedEdges.add(newEdge);
+            }
+            return usedEdges;
+        }
+        return null;
+    }
+
+
+
+    // znajduje krawedz o najmniejszej wadze dla danego wierzchołka
+    // metoda uwzglednia krawedzie niedozwolone
+    public Edge findMinEdge(List<Node> usedNodes,List<Edge> usedEdges){
+        double minValue = 0.0;
+        Edge minValueEdge = new Edge();
+
+        List <Edge> allowedEdges = new ArrayList<>();
+        //przeszukaj liste krawedzi i znajdz te ktore lacza sie z wierzcholkiem i nie sa na liscie niedozwolonych
+        for (Edge edge:edgeList){
+            if (((usedNodes.contains(edge.getStart())) || (usedNodes.contains(edge.getFinish()))) && (!((usedNodes.contains(edge.getStart())) && (usedNodes.contains(edge.getFinish())))) && (!usedEdges.contains(edge))){
+
+                if (edge.getValue() < minValue || minValue == 0){
+                    minValue = edge.getValue();
+                    minValueEdge = edge;
+                }
+            }
+        }
+        return minValueEdge;
     }
 }

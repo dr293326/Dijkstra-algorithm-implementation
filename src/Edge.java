@@ -1,12 +1,17 @@
+import static java.lang.Math.sqrt;
+import static java.lang.Math.abs;
+
 public class Edge {
 
-
-
     private long edgeID;
-    private int value;
+    private double value;
     private String direction;
     private Node start;
     private Node finish;
+
+    public Edge() {
+
+    }
 
     public Edge(long edgeID, int value, String direction, Node start, Node finish) {
         this.edgeID = edgeID;
@@ -22,6 +27,13 @@ public class Edge {
         this.finish = finish;
     }
 
+    public Edge(long edgeID, Node start, Node finish, int value) {
+        this.edgeID = edgeID;
+        this.start = start;
+        this.finish = finish;
+        this.value = value;
+    }
+
     public long getEdgeID() {
         return edgeID;
     }
@@ -30,7 +42,7 @@ public class Edge {
         this.edgeID = edgeID;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
@@ -71,6 +83,20 @@ public class Edge {
     }
 
     public void printOnConsole(){
-        System.out.println("Krawedz ID:" + this.edgeID + " ID wezla start:" + start.getNodeID() + " ID wezla koniec:" + finish.getNodeID() );
+        System.out.println("Krawedz ID:" + this.edgeID + " ID wezla start:" + start.getNodeID() + " ID wezla koniec:" + finish.getNodeID() + " Warosc: " + this.value);
+    }
+
+    public void calculateValue(){
+        int x1 = this.start.getX();
+        int y1 = this.start.getY();
+        int x2 = this.finish.getX();
+        int y2 = this.finish.getY();
+
+        double absx = (double)Math.abs(x1-x2);
+        double absy = (double)Math.abs(y1-y2);
+
+        double res = sqrt(absx*absx + absy*absy);
+
+        this.value = res;
     }
 }
