@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="400.0" style="-fx-background-color: #3d3d3d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindowController">
+    <children>
+        <Button fx:id="exitButton" layoutX="25.0" layoutY="220.0" mnemonicParsing="false" onAction="#exitApp" prefWidth="350.0" style="-fx-background-color: #8c8c8c;" text="Wyjdź z aplikacji" textFill="#3d3d3d">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Button fx:id="loadButton" layoutX="25.0" layoutY="100.0" mnemonicParsing="false" onAction="#loadGraph" prefWidth="350.0" style="-fx-background-color: #8c8c8c;" text="Wczytaj graf z pliku" textFill="#3d3d3d">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Button fx:id="mst" layoutX="25.0" layoutY="140.0" mnemonicParsing="false" onAction="#mstClicked" prefWidth="350.0" style="-fx-background-color: #8c8c8c;" text="MST - Algorytm Prima" textFill="#3d3d3d">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Button layoutX="25.0" layoutY="180.0" mnemonicParsing="false" prefWidth="350.0" style="-fx-background-color: #8c8c8c;" text="Najkrótsza ścieżka - Algorytm Dijkstry" textFill="#3d3d3d">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <TextField fx:id="textField" layoutX="25.0" layoutY="60.0" prefHeight="25.0" prefWidth="350.0" style="-fx-background-color: #8c8c8c;" text="resources/example.txt" />
+        <Label layoutX="25.0" layoutY="31.0" text="Ścieżka pliku:" textFill="#8c8c8c">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </children>
+</Pane>

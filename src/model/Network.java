@@ -1,9 +1,7 @@
+package model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.LineNumberReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -27,9 +25,17 @@ public class Network {
         networkCounter++;
     }
 
+    public List<Node> getNodeList() {
+        return nodeList;
+    }
+
+    public List<Edge> getEdgeList() {
+        return edgeList;
+    }
+
     //TODO: rozbic wczytywanie na podmetody
     //TODO: sprawdzac czy krawedzie sie nie powtarzaja np 2 i 8 w przykladowym pliku
-    public void readFromFile(String pathFile) {
+    public int readFromFile(String pathFile) {
         if(!isNull(pathFile))
         {
             try {
@@ -87,17 +93,24 @@ public class Network {
                             catch (NumberFormatException nfex) {
                                 System.out.println("Wystapil blad podczas wczytywania grafu z pliku!");
                                 System.out.println("Wyjatek :" + nfex.getMessage());
+                                return 0;
                             }
                         }
                     }
+                }
+                else{
+                    return -1;
                 }
             }
 
 
             catch(FileNotFoundException ex){
                 System.out.println("Nie znaleziono pliku o podanej sciezce!");
+                return -1;
             }
+            return 1;
         }
+        return -1;
     }
 
     public void printNetwork() {

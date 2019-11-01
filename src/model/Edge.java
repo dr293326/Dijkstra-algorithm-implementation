@@ -1,5 +1,8 @@
+package model;
+
 import static java.lang.Math.sqrt;
 import static java.lang.Math.abs;
+
 
 public class Edge {
 

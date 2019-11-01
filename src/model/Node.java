@@ -1,3 +1,5 @@
+package model;
+
 public class Node {
 
     private long nodeID;
