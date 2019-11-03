@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
@@ -8,10 +9,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="734.0" style="-fx-background-color: #3d3d3d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GraphDrawingController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1300.0" style="-fx-background-color: #3d3d3d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GraphDrawingController">
    <children>
-      <Pane fx:id="insidePane" layoutX="11.0" layoutY="24.0" prefHeight="338.0" prefWidth="579.0" style="-fx-background-color: #8c8c8c;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Pane fx:id="insidePane" layoutX="11.0" layoutY="24.0" prefHeight="668.0" prefWidth="1280.0" style="-fx-background-color: #8c8c8c;" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="mstbtn" layoutX="590.0" layoutY="482.0" mnemonicParsing="false" onAction="#mstClicked" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #8c8c8c;" text="MST" textFill="#3d3d3d" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
       <Button fx:id="closebtn" layoutX="10.0" layoutY="482.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #8c8c8c;" text="Zamknij" textFill="#3d3d3d" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="10.0" />
+      <Label layoutX="1167.0" layoutY="678.0" text="Nr węzła startowego:" textFill="#8c8c8c" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="21.0" />
+      <TextField fx:id="mstStartTextField" alignment="CENTER" layoutX="1209.0" layoutY="695.0" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #8c8c8c;" text="1" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="63.0" />
+      <Button fx:id="dijkstrabtn" layoutX="992.0" layoutY="727.0" mnemonicParsing="false" onAction="#dijkstraClicked" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #8c8c8c;" text="Dijkstra" textFill="#3d3d3d" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="174.0" />
+      <Label layoutX="1036.0" layoutY="678.0" text="Nr węzła" textFill="#8c8c8c" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="217.0" />
+      <TextField fx:id="dijkstraStartTextField" alignment="CENTER" layoutX="1022.0" layoutY="695.0" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #8c8c8c;" text="1" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="250.0" />
+      <TextField fx:id="dijkstraFinishTextField" alignment="CENTER" layoutX="1097.0" layoutY="695.0" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #8c8c8c;" text="2" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="175.0" />
+      <Label layoutX="992.0" layoutY="699.0" text="start:" textFill="#8c8c8c" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="281.0" />
+      <Label layoutX="1058.0" layoutY="699.0" text="koniec:" textFill="#8c8c8c" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="204.0" />
    </children>
 </AnchorPane>

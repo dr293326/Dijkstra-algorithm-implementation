@@ -153,8 +153,6 @@ public class Network {
         return null;
     }
 
-
-
     // znajduje krawedz o najmniejszej wadze dla danego wierzchołka
     // metoda uwzglednia krawedzie niedozwolone
     public Edge findMinEdge(List<Node> usedNodes,List<Edge> usedEdges){
@@ -173,5 +171,138 @@ public class Network {
             }
         }
         return minValueEdge;
+    }
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+
+    public List<Edge> algDijkstra(int startID, int finishID){
+        Node start = nodeList.get(startID-1);
+        Node finish = nodeList.get(finishID-1);
+
+        //ustawiam odleglosci poczatkowe od startowego wezla
+        for (Node node:nodeList) {
+            if (node == start){
+                node.setDistanceToStartNode(0.0);
+            }
+            else{
+                node.setDistanceToStartNode(Double.MAX_VALUE);
+            }
+        }
+
+        //tworze liste visited
+        List<Node> visitedNodes = new ArrayList<>();
+        List<Edge> visitedEdges = new ArrayList<>();
+
+        //pierwszy odlg == 0 od siebie
+        start.setParentNode(start);
+        //dodaje startowy wezel do visitedNodes
+        visitedNodes.add(start);
+
+        while (!visitedNodes.contains(finish)){
+            Node tmpNode;
+            tmpNode = visitedNodes.get(visitedNodes.size()-1);
+
+            Node foundNode = findNeighboursAndCalculate(tmpNode,visitedNodes,visitedEdges);
+
+            Edge foundEdge = findEdge(foundNode.getParentNode(),foundNode,visitedEdges);
+            foundEdge.setParentNode(foundNode.getParentNode());
+
+            visitedEdges.add(foundEdge);
+            visitedNodes.add(foundNode);
+        }
+
+        //wyciagam edge do sciezki
+        List<Edge> visualEdges = new ArrayList<>();
+        Node currentNode = finish;
+        while(currentNode != start){
+            for(Edge edge:visitedEdges){
+                if( (edge.getStart() == currentNode && edge.getFinish() == currentNode.getParentNode()) || (edge.getStart() == currentNode.getParentNode() && edge.getFinish() == currentNode)){
+                    visualEdges.add(edge);
+                    break;
+                }
+            }
+            currentNode = currentNode.getParentNode();
+        }
+
+        //resetuje odleglosci i parentnode bo juz mam liste krawedzi
+        resetNodeDistances();
+        for (Node node:nodeList){
+            node.setParentNode(null);
+        }
+
+
+        return visualEdges;
+    }
+
+    //metoda ustawia odl na -
+    private void resetNodeDistances() {
+        for (Node node:nodeList){
+            node.setDistanceToStartNode(-1.0);
+        }
+    }
+
+    //metoda znajduje nieodwiedzonych sasiadow
+    //przelicza im odleglosci
+    //zwraca wezel dla ktorego odleglosc jest najmniejsza w ramach calej dotychczasowej sieci
+    private Node findNeighboursAndCalculate(Node node, List<Node> alreadyVisited, List<Edge> visitedEdges){
+
+        for(Edge edge : edgeList){
+            if (edge.getStart() == node && !alreadyVisited.contains(edge.getFinish()) && !visitedEdges.contains(edge)) {
+                //jesli nowowyliczona odleglosc mniejsza zmieniam
+                if( (node.getDistanceToStartNode() + edge.getValue()) < edge.getFinish().getDistanceToStartNode() ){
+                    edge.getFinish().setDistanceToStartNode(node.getDistanceToStartNode() + edge.getValue());
+                    edge.getFinish().setParentNode(edge.getStart());
+                }
+                //neighbourNodes.add(edge.getFinish());
+            }
+            else if(edge.getFinish() == node && !alreadyVisited.contains(edge.getStart()) && !visitedEdges.contains(edge)) {
+                //jesli nowowyliczona odleglosc mniejsza zmieniam
+                if( (node.getDistanceToStartNode() + edge.getValue()) < edge.getStart().getDistanceToStartNode() ){
+                    edge.getStart().setDistanceToStartNode(node.getDistanceToStartNode() + edge.getValue());
+                    edge.getStart().setParentNode(edge.getFinish());
+                }
+                //neighbourNodes.add(edge.getFinish());
+            }
+        }
+
+        List<Node> neighbourNodes = findNeigbours(alreadyVisited, visitedEdges);
+        Node shortestNode = null;
+        //znajduje wezel o najkrotszej odlg
+        for (Node currNode :neighbourNodes){
+            if (isNull(shortestNode)){
+                shortestNode = currNode;
+            }
+            if (currNode.getDistanceToStartNode() < shortestNode.getDistanceToStartNode()){
+                shortestNode = currNode;
+            }
+        }
+        return shortestNode;
+    }
+
+    private List<Node> findNeigbours(List<Node> visitedNodes, List<Edge> visitedEdges){
+        List<Node> neighNodes = new ArrayList<>();
+        for (Edge edge:edgeList){
+            if (visitedNodes.contains(edge.getStart())  && !( visitedNodes.contains(edge.getStart()) && visitedNodes.contains(edge.getFinish())) && !neighNodes.contains(edge.getFinish()) && !visitedEdges.contains(edge)) {
+                neighNodes.add(edge.getFinish());
+                edge.setParentNode(edge.getStart());
+            }
+            else if (visitedNodes.contains(edge.getFinish())  && !(visitedNodes.contains(edge.getStart()) && visitedNodes.contains(edge.getFinish())) && !neighNodes.contains(edge.getStart()) && !visitedEdges.contains(edge)) {
+                neighNodes.add(edge.getStart());
+                edge.setParentNode(edge.getFinish());
+            }
+        }
+        return neighNodes;
+    }
+
+    private Edge findEdge (Node parent,Node current, List<Edge>visitedEdges){
+        for (Edge edge:edgeList){
+            if (!visitedEdges.contains(edge) && ((parent == edge.getStart() && current == edge.getFinish())||(parent == edge.getFinish() && current == edge.getStart()))){
+                return edge;
+            }
+        }
+        return null;
     }
 }

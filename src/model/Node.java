@@ -5,6 +5,24 @@ public class Node {
     private long nodeID;
     private int x;
     private int y;
+    private double distanceToStartNode;
+    private Node parentNode = null;
+
+    public void setParentNode(Node parentNode) {
+        this.parentNode = parentNode;
+    }
+
+    public Node getParentNode() {
+        return parentNode;
+    }
+
+    public void setDistanceToStartNode(double distanceToStartNode) {
+        this.distanceToStartNode = distanceToStartNode;
+    }
+
+    public double getDistanceToStartNode() {
+        return distanceToStartNode;
+    }
 
     public Node(){
 

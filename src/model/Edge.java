@@ -11,6 +11,7 @@ public class Edge {
     private String direction;
     private Node start;
     private Node finish;
+    private Node parentNode;
 
     public Edge() {
 
@@ -101,5 +102,14 @@ public class Edge {
         double res = sqrt(absx*absx + absy*absy);
 
         this.value = res;
+    }
+
+    public Node getParentNode() {
+        return parentNode;
+    }
+
+    public void setParentNode(Node parentNode)
+    {
+        this.parentNode = parentNode;
     }
 }
