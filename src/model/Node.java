@@ -12,9 +12,29 @@ public class Node {
     private Node parentNode = null;
     public double resultOlt;
 
+    private int numberOfClients;
+
     List<Path> pathList = new ArrayList<>();
     List<Path> resultPathList = new ArrayList<>();
     List<Path> sortedPathList = new ArrayList<>();
+
+    List<Edge> visualisationEdges = new ArrayList<>();
+
+    public int getNumberOfClients() {
+        return numberOfClients;
+    }
+
+    public void setNumberOfClients(int numberOfClients) {
+        this.numberOfClients = numberOfClients;
+    }
+
+    public List<Edge> getVisualisationEdges() {
+        return visualisationEdges;
+    }
+
+    public void setVisualisationEdges(List<Edge> visualisationEdges) {
+        this.visualisationEdges = visualisationEdges;
+    }
 
     public void setParentNode(Node parentNode) {
         this.parentNode = parentNode;
@@ -34,6 +54,14 @@ public class Node {
 
     public Node(){
 
+    }
+
+    public List<Path> getPathList() {
+        return pathList;
+    }
+
+    public void setPathList(List<Path> pathList) {
+        this.pathList = pathList;
     }
 
     public List<Path> sortPathList(List<Path> currPath){
@@ -62,10 +90,11 @@ public class Node {
     }
 
 
-    public Node(long nodeID, int x, int y) {
+    public Node(long nodeID, int x, int y, int numberOfClients) {
         this.nodeID = nodeID;
         this.x = x;
         this.y = y;
+        this.numberOfClients = numberOfClients;
     }
 
     public void setNodeProperties(long nodeID, int x, int y){

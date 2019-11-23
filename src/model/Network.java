@@ -14,12 +14,16 @@ public class Network {
     private long networkID;
     private List<Edge> edgeList = new ArrayList<>();
     private List<Node> nodeList = new ArrayList<>();
+    private List<Cable> cableList = new ArrayList<>();
     private File file;
     private int numberOfNodes;
     private int numberOfEdges;
+    private int numberOfCables;
     private boolean isNode = false;
     private boolean isEdge = false;
+    private boolean isCable = false;
     public double limit = 500.0;
+
 
     public Network() {
         this.networkID = networkCounter + 1;
@@ -61,6 +65,7 @@ public class Network {
                                 if (result[0].contains("WEZLY")) {
                                     isEdge = false;
                                     isNode = true;
+                                    isCable = false;
                                     numberOfNodes = Integer.parseInt(result[2]);
                                     line = scanner.nextLine();
                                     result = line.split(" ");
@@ -69,17 +74,28 @@ public class Network {
                                 if (result[0].contains("LACZA")) {
                                     isEdge = true;
                                     isNode = false;
+                                    isCable = false;
                                     numberOfEdges = Integer.parseInt(result[2]);
                                     line = scanner.nextLine();
                                     result = line.split(" ");
                                 }
+
+                                if (result[0].contains("KABLE")) {
+                                    isEdge = false;
+                                    isNode = false;
+                                    isCable = true;
+                                    numberOfCables = Integer.parseInt(result[2]);
+                                    line = scanner.nextLine();
+                                    result = line.split(" ");
+                                }
+
                                 //wczytuje do obiektow
-                                if (isEdge == false && isNode == true && (!result[0].contains("#"))) {
-                                    Node tmpnode = new Node(Long.parseLong(result[0]),Integer.parseInt(result[1]),Integer.parseInt(result[2]));
+                                if (isEdge == false && isNode == true && isCable == false && (!result[0].contains("#"))) {
+                                    Node tmpnode = new Node(Long.parseLong(result[0]),Integer.parseInt(result[1]),Integer.parseInt(result[2]), Integer.parseInt(result[3]));
                                     nodeList.add(tmpnode);
                                 }
 
-                                if (isEdge == true && isNode == false && (!result[0].contains("#"))) {
+                                if (isEdge == true && isNode == false && isCable == false && (!result[0].contains("#"))) {
                                     //id - 1 bo tablice indeksowane od 0 a nie 1
                                     Edge tmpedge = new Edge((Long.parseLong(result[0])),nodeList.get(Integer.parseInt(result[1])-1),nodeList.get(Integer.parseInt(result[2])-1));
                                     //sprawdzam czy poprawnie wprowadzilo do tmpedge
@@ -89,6 +105,12 @@ public class Network {
                                     tmpedge.calculateValue();
                                     edgeList.add(tmpedge);
 
+                                }
+
+                                if (isEdge == false && isNode == false && isCable == true && (!result[0].contains("#"))) {
+                                    Cable tmpcable = new Cable(Integer.parseInt(result[0]),Integer.parseInt(result[1]),Integer.parseInt(result[2]));
+                                    tmpcable.ratio = (double)tmpcable.capacity/tmpcable.cost;
+                                    cableList.add(tmpcable);
                                 }
                             }
                             catch (NumberFormatException nfex) {
@@ -123,6 +145,11 @@ public class Network {
         for (Edge edges:edgeList) {
             edges.printOnConsole();
         }
+        System.out.println("/----------------------------------------------------------------/");
+        for (Cable cables:cableList) {
+            cables.printOnConsole();
+        }
+
     }
 
     public List<Edge> doPrimMST(int startID){
@@ -399,4 +426,92 @@ public class Network {
     }
 
      */
+    //----------------------------------------------------------------------------------------------------------------
+
+    //znajduje kabel o najlepszym wspolczynniku
+    /*
+    public Cable findBestCable(List<Cable> cableList){
+
+        Cable bestCable = null;
+
+        for (Cable currentCable:cableList) {
+            if (isNull(bestCable)) {
+                bestCable = currentCable;
+            }
+            else if(bestCable.getRatio() < currentCable.getRatio() ){
+                bestCable = currentCable;
+            }
+        }
+        return bestCable;
+    }
+
+     */
+
+    public Node heuristicAlg(){
+        //ustalam centrale
+        Node centralNode = findCentralNode(nodeList);
+
+        //wyznaczam pozostale wezly
+        List<Node> slaveNodes = returnListWithoutCentral(nodeList,centralNode);
+
+        List<Edge> pathEdges;
+        for (Node currentNode:slaveNodes){
+
+            pathEdges = algDijkstra((int)centralNode.getNodeID(),(int)currentNode.getNodeID());
+            Path currentPath = new Path(centralNode,currentNode,pathEdges);
+
+            currentPath.assignCablesToEdges(cableList);
+
+            centralNode.pathList.add(currentPath);
+        }
+        //znajduje unikalne krawedzie do wyswietlania i przypisuje je do wezla centralnego
+        centralNode.setVisualisationEdges(findUniqueEdges(centralNode.getPathList()));
+
+
+
+        return centralNode;
+    }
+
+    //metoda zwraca centrale
+    public Node findCentralNode(List<Node> nodeList){
+
+        Node rtnNode = null;
+
+        for(Node node:nodeList){
+            if (node.getNumberOfClients() == -1){
+                rtnNode = node;
+                break;
+            }
+        }
+        return rtnNode;
+    }
+
+    //metoda zwraca liste pozostale wezly poza centralnym
+    public List<Node> returnListWithoutCentral(List<Node> nodeList, Node central){
+        List<Node> restNodesList = new ArrayList<>();
+        restNodesList.addAll(nodeList);
+        restNodesList.remove(central);
+        return restNodesList;
+    }
+
+    public List<Edge> findUniqueEdges(List<Path> pathList){
+        List<Edge> visualisationEdges = new ArrayList<>();
+
+        for(Path path:pathList){
+             List<Edge> currentEdges = path.getUsedEdges();
+
+             for(Edge currentEdge:currentEdges){
+                 if (!visualisationEdges.contains(currentEdge)){
+                     visualisationEdges.add(currentEdge);
+                 }
+             }
+        }
+        return visualisationEdges;
+    }
+
+    public void PrintPaths(List<Path> pathList){
+        for (Path path:pathList){
+            System.out.println("------------------------------------------");
+        }
+    }
 }
