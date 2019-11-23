@@ -42,6 +42,29 @@ public class GraphDrawingController {
     @FXML
     private Button dijkstrabtn;
 
+    @FXML
+    private Button algbtn;
+
+    @FXML
+    void algClicked() {
+        clearAlgorithmLines();
+
+        Node central = mainWindowController.getNetwork().heuristicAlg();
+
+        Circle currentCircle = new Circle(central.getX()*scale,central.getY()*scale,20, Color.GREEN);
+
+        Label currentLabel = new Label();
+        currentLabel.setText(String.valueOf(central.getNodeID()));
+        currentLabel.setLayoutX(currentCircle.getCenterX());
+        currentLabel.setLayoutY(currentCircle.getCenterY());
+        currentLabel.setTextFill(Color.WHITE);
+
+        pane.getChildren().add(currentCircle);
+        pane.getChildren().add(currentLabel);
+
+        drawAlgorithmEdges(central.getVisualisationEdges());
+
+    }
 
 
 

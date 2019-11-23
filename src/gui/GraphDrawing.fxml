@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1300.0" style="-fx-background-color: #3d3d3d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GraphDrawingController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1300.0" style="-fx-background-color: #3d3d3d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GraphDrawingController">
    <children>
       <Pane fx:id="insidePane" layoutX="11.0" layoutY="24.0" prefHeight="668.0" prefWidth="1280.0" style="-fx-background-color: #8c8c8c;" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="mstbtn" layoutX="590.0" layoutY="482.0" mnemonicParsing="false" onAction="#mstClicked" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #8c8c8c;" text="MST" textFill="#3d3d3d" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
@@ -22,5 +19,6 @@
       <TextField fx:id="dijkstraFinishTextField" alignment="CENTER" layoutX="1097.0" layoutY="695.0" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #8c8c8c;" text="2" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="175.0" />
       <Label layoutX="992.0" layoutY="699.0" text="start:" textFill="#8c8c8c" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="281.0" />
       <Label layoutX="1058.0" layoutY="699.0" text="koniec:" textFill="#8c8c8c" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="204.0" />
+      <Button fx:id="algbtn" layoutX="823.0" layoutY="727.0" mnemonicParsing="false" onAction="#algClicked" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #8c8c8c;" text="Alg" textFill="#3d3d3d" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="343.0" />
    </children>
 </AnchorPane>

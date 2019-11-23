@@ -13,15 +13,17 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         //System.out.println("Hello World!");
-
+/*
         System.out.println("");
         Network network = new Network();
         List <Edge> primAlgorithmEdges;
         network.readFromFile("resources/example.txt");
 
+        network.heuristicAlg();
+        network.printPaths(network.findCentralNode(network.getNodeList()).getPathList());
 
         network.printNetwork();
-/*
+
          primAlgorithmEdges = network.doPrimMST(0);
 
         System.out.println("");

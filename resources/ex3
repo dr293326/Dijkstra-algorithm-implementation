@@ -5,26 +5,26 @@
 # max x 125 min 10
 WEZLY = 20
 # kazdy wezel to trojka (identyfikator, wspolrzedna X, wspolrzedna Y)
-1 10 10
-2 10 40
-3 11 55
-4 10 64
-5 35 12
-6 31 38
-7 29 46
-8 30 60
-9 71 9
-10 60 23
-11 65 51
-12 67 59
-13 91 14
-14 88 41
-15 93 49
-16 90 64
-17 124 17
-18 119 23
-19 118 49
-20 122 63
+1 10 10 -1
+2 10 40 0
+3 11 55 0
+4 10 64 2
+5 35 12 6
+6 31 38 4
+7 29 46 8
+8 30 60 0
+9 71 9 2
+10 60 23 10
+11 65 51 23
+12 67 59 0
+13 91 14 15
+14 88 41 12
+15 93 49 2
+16 90 64 1
+17 124 17 6
+18 119 23 11
+19 118 49 9
+20 122 63 20
 # liczba krawedzi
 LACZA = 31
 # kazde lacze to trojka (identyfikator, wezel poczatkowy, wezel koncowy, wartosc)
@@ -59,3 +59,8 @@ LACZA = 31
 29 15 18
 30 18 19
 31 17 18
+KABLE = 3
+# kazdy typ kabla to (identyfikator, pojemnosc, koszt za jednostke dlugosci)
+1 1 4
+2 2 6
+3 4 8

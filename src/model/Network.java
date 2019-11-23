@@ -466,8 +466,7 @@ public class Network {
         }
         //znajduje unikalne krawedzie do wyswietlania i przypisuje je do wezla centralnego
         centralNode.setVisualisationEdges(findUniqueEdges(centralNode.getPathList()));
-
-
+        printPaths(centralNode.pathList);
 
         return centralNode;
     }
@@ -506,12 +505,14 @@ public class Network {
                  }
              }
         }
+
         return visualisationEdges;
     }
 
-    public void PrintPaths(List<Path> pathList){
+    public void printPaths(List<Path> pathList){
+        System.out.println("------------------------------------------");
         for (Path path:pathList){
-            System.out.println("------------------------------------------");
+            path.printOnConsole();
         }
     }
 }

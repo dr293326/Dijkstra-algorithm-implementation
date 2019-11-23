@@ -115,4 +115,8 @@ public class Path {
         }
         return bestCable;
     }
+
+    public void printOnConsole() {
+        System.out.println("Od punktu: " + startNode.getNodeID() + " Do punktu: " + finishNode.getNodeID()  + " Ilosc krawedzi:" + usedEdges.size() + " Ilosc kabli: " + usedCables.size() + " Pojemnosc kabli: " + totalCapacity);
+    }
 }

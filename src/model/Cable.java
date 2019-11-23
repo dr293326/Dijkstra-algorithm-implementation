@@ -48,4 +48,6 @@ public class Cable {
     public void printOnConsole(){
         System.out.println("Kabel ID:" + this.cableID + " Pojemnosc:" + this.capacity + " Koszt:" + this.cost + " Ratio: " + this.ratio);
     }
+
+
 }
