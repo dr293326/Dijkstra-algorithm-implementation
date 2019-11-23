@@ -1,5 +1,6 @@
 package model;
 
+import model.Task1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Network {
     private int numberOfEdges;
     private boolean isNode = false;
     private boolean isEdge = false;
-
+    public double limit = 500.0;
 
     public Network() {
         this.networkID = networkCounter + 1;
@@ -203,7 +204,7 @@ public class Network {
             Node foundNode = findNeighboursAndCalculate(tmpNode,visitedNodes,visitedEdges);
 
             Edge foundEdge = findEdge(foundNode.getParentNode(),foundNode,visitedEdges);
-            foundEdge.setParentNode(foundNode.getParentNode());
+  //          foundEdge.setParentNode(foundNode.getParentNode());
 
             visitedEdges.add(foundEdge);
             visitedNodes.add(foundNode);
@@ -300,4 +301,102 @@ public class Network {
         }
         return null;
     }
+
+    public double countDijkstra(int startID,int finishID){
+        List<Edge> toCount = algDijkstra(startID,finishID);
+        double sum = 0;
+        for (Edge edge:toCount){
+            sum = sum + edge.getValue();
+        }
+        return sum;
+    }
+    /*
+    public Task1 zad1(){
+        List<Double> resultOlt = new ArrayList<>();
+        for (Node node:nodeList){
+             List<Node> notOLTNodes = new ArrayList<>();
+             //notOLTNodes = nodeList;
+             //notOLTNodes.remove(node);
+             double valDijkstra = 0.0;
+             for (Node nodes:nodeList){
+                 if(nodes != node){
+                      valDijkstra = countDijkstra((int)node.getNodeID(),(int)nodes.getNodeID());
+                      Path path = new Path();
+                      path.startNode = node;
+                      path.finishNode = nodes;
+                      path.value = valDijkstra;
+                      node.pathList.add(path);
+                 }
+             }
+             //node.resultOlt = sumDijkstra;
+             //sumDijkstra = 0;
+              node.sortedPathList = node.sortPathList(node.pathList);
+             double pathSum = 0;
+             for (Path path:node.sortedPathList){
+                 if (pathSum < limit) {
+                     pathSum = pathSum + path.value;
+                     node.resultPathList.add(path);
+                 }
+                 else
+                 {
+                     break;
+                 }
+             }
+             node.resultOlt = pathSum;
+        }
+        //System.out.println("Wyniki dla OLT");
+        /*
+        Node minNode = null;
+        for (Node n:nodeList){
+            //System.out.println("NODE ID:" + n.getNodeID() + "WYNIK OLT:" + n.resultOlt);
+            if (minNode == null){
+                minNode = n;
+            }
+            if( n.resultOlt < minNode.resultOlt  ){
+                minNode = n;
+            }
+        }
+
+        Node minNode = null;
+
+        List<Edge> resultEdges = new ArrayList<>();
+        int nodeCounter = 0;
+
+        for (int i = 0; i < nodeList.size();i++){
+            Node nodes = nodeList.get(i);
+            if (nodeCounter == 0) {
+                nodeCounter = nodes.resultPathList.size();
+                minNode = nodes;
+            }
+            if(nodes.resultPathList.size() > nodeCounter) {
+
+                nodeCounter = nodes.resultPathList.size();
+                minNode = nodes;
+            }
+            else if(nodes.resultPathList.size() == nodeCounter) {
+                if(nodes.resultOlt < minNode.resultOlt ){
+                    minNode = nodes;
+                    nodeCounter = nodes.resultPathList.size();
+                }
+            }
+        }
+        List<Edge> tmpEdges = new ArrayList<>();
+        List<Edge> finalEdges = new ArrayList<>();
+        for(int i=0; i<minNode.resultPathList.size(); i++){
+            Node finish = minNode.resultPathList.get(i).finishNode;
+            tmpEdges = algDijkstra((int)minNode.getNodeID(),(int)finish.getNodeID());
+            for(Edge edge:tmpEdges){
+                if (!finalEdges.contains(edge)){
+                    finalEdges.add(edge);
+                }
+            }
+        }
+
+        Task1 task = new Task1();
+        task.taskEdgeList=finalEdges;
+        task.taskNode = minNode;
+        return task;
+    }
+
+     */
 }

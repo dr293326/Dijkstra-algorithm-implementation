@@ -3,6 +3,7 @@ package gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -12,6 +13,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import model.Edge;
 import model.Node;
+import model.Task1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class GraphDrawingController {
     List<Line> edgeLineList = new ArrayList<>();
     public MainWindowController mainWindowController;
     public boolean isDrawn = false;
+    public int scale = 10;
 
     @FXML
     private Pane insidePane;
@@ -91,6 +94,9 @@ public class GraphDrawingController {
         }
     }
 
+
+
+
     private void drawAlgorithmEdges(List<Edge> edges) {
         for (Edge currentEdge : edges) {
             Line currentLine = new Line();
@@ -104,6 +110,24 @@ public class GraphDrawingController {
             edgeLineList.add(currentLine);
             pane.getChildren().add(currentLine);
         }
+        /*
+        for (Node currentNode:mainWindowController.getNetwork().getNodeList()){
+            Circle currentCircle = new Circle(currentNode.getX()*scale,currentNode.getY()*scale,20, Color.BLUE);
+            //Circle currentCircle = new Circle(currentNode.getX(),currentNode.getY(),15, Color.BLUE);
+            Label currentLabel = new Label();
+
+            currentLabel.setText(String.valueOf(currentNode.getNodeID()));
+            currentLabel.setLayoutX(currentCircle.getCenterX());
+            currentLabel.setLayoutY(currentCircle.getCenterY());
+            currentLabel.setTextFill(Color.WHITE);
+            //currentLabel.setFont(Font.font(14));
+
+            //nodeCircleList.add(currentCircle);
+            pane.getChildren().add(currentCircle);
+            pane.getChildren().add(currentLabel);
+        }
+        */
+
         isDrawn = true;
     }
 

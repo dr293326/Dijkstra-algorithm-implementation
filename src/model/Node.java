@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
 
     private long nodeID;
@@ -7,6 +10,11 @@ public class Node {
     private int y;
     private double distanceToStartNode;
     private Node parentNode = null;
+    public double resultOlt;
+
+    List<Path> pathList = new ArrayList<>();
+    List<Path> resultPathList = new ArrayList<>();
+    List<Path> sortedPathList = new ArrayList<>();
 
     public void setParentNode(Node parentNode) {
         this.parentNode = parentNode;
@@ -27,6 +35,32 @@ public class Node {
     public Node(){
 
     }
+
+    public List<Path> sortPathList(List<Path> currPath){
+        List<Path> tmp = new ArrayList<>(currPath);
+        List<Path> sorted = new ArrayList<>();
+        Path tmpPath = new Path();
+        while (tmp.size() != 0){
+            tmpPath = findMinPath(tmp);
+            sorted.add(tmpPath);
+            tmp.remove(tmpPath);
+        }
+        return sorted;
+    }
+
+    public Path findMinPath(List<Path> listPath){
+        Path minPath = null;
+        for(Path p:listPath){
+            if (minPath == null){
+                minPath = p;
+            }
+            if(p.value < minPath.value){
+                minPath = p;
+            }
+        }
+        return minPath;
+    }
+
 
     public Node(long nodeID, int x, int y) {
         this.nodeID = nodeID;

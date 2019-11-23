@@ -31,9 +31,10 @@ public class Main extends Application {
              currentEdge.printOnConsole();
          }
 
+
         Network netTest = new Network();
         netTest.readFromFile("resources/ex2.txt");
-        netTest.algDijkstra(netTest.getNodeList().get(0),netTest.getNodeList().get(1));
+        netTest.zad1();
 */
         launch();
     }
