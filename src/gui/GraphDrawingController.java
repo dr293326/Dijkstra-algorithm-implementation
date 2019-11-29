@@ -63,7 +63,16 @@ public class GraphDrawingController {
         pane.getChildren().add(currentLabel);
 
         drawAlgorithmEdges(central.getVisualisationEdges());
+        for (Edge edge:central.getVisualisationEdges()){
 
+            Label fibersLabel = new Label();
+            fibersLabel.setText(String.valueOf(edge.getNumberOfFibers()));
+            fibersLabel.setLayoutX(edge.getCenterX()*scale);
+            fibersLabel.setLayoutY(edge.getCenterY()*scale);
+            fibersLabel.setTextFill(Color.WHITE);
+
+            pane.getChildren().add(fibersLabel);
+        }
     }
 
 

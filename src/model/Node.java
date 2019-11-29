@@ -122,4 +122,19 @@ public class Node {
     public void printOnConsole() {
         System.out.println("Wezel ID:" + this.nodeID + " X:" + this.x + " Y:" + this.y);
     }
+
+    /*
+    public void calculateFibers(){
+        for (Edge edge:visualisationEdges){
+            for(Path path:pathList){
+                List<Edge> pathEdges= path.getUsedEdges();
+                for(Edge pathEdge:pathEdges){
+                    if(pathEdge == edge){
+
+                    }
+                }
+            }
+        }
+    }
+     */
 }

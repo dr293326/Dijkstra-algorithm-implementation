@@ -12,6 +12,7 @@ public class Edge {
     private Node start;
     private Node finish;
     private Node parentNode;
+    private int numberOfFibers = 0;
 
     public Edge() {
 
@@ -36,6 +37,14 @@ public class Edge {
         this.start = start;
         this.finish = finish;
         this.value = value;
+    }
+
+    public int getNumberOfFibers() {
+        return numberOfFibers;
+    }
+
+    public void setNumberOfFibers(int numberOfFibers) {
+        this.numberOfFibers = numberOfFibers;
     }
 
     public long getEdgeID() {
@@ -111,5 +120,15 @@ public class Edge {
     public void setParentNode(Node parentNode)
     {
         this.parentNode = parentNode;
+    }
+
+    public int getCenterX() {
+        int rtn = (this.start.getX() + this.finish.getX())/2;
+        return rtn;
+    }
+
+    public int getCenterY() {
+        int rtn = (this.start.getY() + this.finish.getY())/2;
+        return rtn;
     }
 }

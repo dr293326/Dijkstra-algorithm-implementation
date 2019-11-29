@@ -93,6 +93,7 @@ public class Path {
                 addCable(currentCable);
                 currentCapacity = currentCapacity + currentCable.getCapacity();
             }
+            edge.setNumberOfFibers(edge.getNumberOfFibers() + currentCapacity);
         }
     }
 

@@ -457,6 +457,7 @@ public class Network {
         List<Edge> pathEdges;
         for (Node currentNode:slaveNodes){
 
+            //wyznaczam Dijkstra krawedzie i trzymam to w obiekcie typu sciezka
             pathEdges = algDijkstra((int)centralNode.getNodeID(),(int)currentNode.getNodeID());
             Path currentPath = new Path(centralNode,currentNode,pathEdges);
 

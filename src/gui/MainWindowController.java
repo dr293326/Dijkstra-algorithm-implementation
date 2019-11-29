@@ -81,6 +81,7 @@ public class MainWindowController {
         for (Node currentNode:nodeList){
             Circle currentCircle = new Circle(currentNode.getX()*scale,currentNode.getY()*scale,20, Color.BLUE);
             //Circle currentCircle = new Circle(currentNode.getX(),currentNode.getY(),15, Color.BLUE);
+            //numer wezla
             Label currentLabel = new Label();
 
             currentLabel.setText(String.valueOf(currentNode.getNodeID()));
@@ -89,9 +90,24 @@ public class MainWindowController {
             currentLabel.setTextFill(Color.WHITE);
             //currentLabel.setFont(Font.font(14));
 
+            Label clientsLabel = new Label();
+
+            if (currentNode.getNumberOfClients() < 0) {
+                clientsLabel.setText("C");
+            }
+            else
+            {
+                clientsLabel.setText("K:" + currentNode.getNumberOfClients());
+            }
+
+            clientsLabel.setLayoutX(currentCircle.getCenterX()-20);
+            clientsLabel.setLayoutY(currentCircle.getCenterY()-20);
+            clientsLabel.setTextFill(Color.HONEYDEW);
+
             nodeCircleList.add(currentCircle);
             pane.getChildren().add(currentCircle);
             pane.getChildren().add(currentLabel);
+            pane.getChildren().add(clientsLabel);
         }
         List<Edge> edgeList = network.getEdgeList();
 
