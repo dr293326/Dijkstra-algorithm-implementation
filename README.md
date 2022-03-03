@@ -2,4 +2,6 @@
 
 ### Dijkstra's algorithm implemented in Java with GUI presentation layer.
 
-Java / JavaFX
+##### This is a project made during Algorithms and Data structures course at Warsaw University of Technology.
+
+*Tech stack:* Java / JavaFX
