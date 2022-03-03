@@ -4,4 +4,4 @@
 
 ##### This is a project made during Algorithms and Data structures course at Warsaw University of Technology.
 
-**Tech stack: Java / JavaFX**
+**Tech stack: &nbsp;&nbsp;&nbsp;&nbsp;Java / JavaFX**
